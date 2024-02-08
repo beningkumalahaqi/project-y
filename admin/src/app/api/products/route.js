@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import db from "../../../../lib/db";
+import { db } from "../../../../lib/db";
 
 export const POST = async (request) =>{
     const body = await request.json()
@@ -14,8 +14,4 @@ export const POST = async (request) =>{
         }
     });
     return NextResponse.json(product, {status: 201});
-}
-
-export const GET = async()=>{
-    const product = await db.product.findMany({})
 }

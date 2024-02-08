@@ -1,4 +1,4 @@
-import db from "../../../lib/db";
+import { db } from "../../../lib/db";
 import Image from "next/image";
 import AddProduct from "./addProduct";
 import UpdateProduct from "./updateProduct";
