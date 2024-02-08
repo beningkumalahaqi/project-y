@@ -1,8 +1,10 @@
-import db from "../../../lib/db";
+import { PrismaClient } from "@prisma/client";
 import Image from "next/image";
 import AddProduct from "./addProduct";
 import UpdateProduct from "./updateProduct";
 import DeleteProduct from "./deleteProduct";
+
+let db = new PrismaClient()
 
 
 export async function getProducts() {
