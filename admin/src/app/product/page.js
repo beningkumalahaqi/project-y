@@ -5,16 +5,14 @@ import UpdateProduct from "./updateProduct";
 import DeleteProduct from "./deleteProduct";
 
 
+export async function getProducts() {
+  const res = await db.product.findMany({});
+  return res;
+};
 
+export default async function Home() {
 
-const Home = async () => {
-
-  const getProducts = async () => {
-    const res = await db.product.findMany({});
-    return res;
-  };
-
-  const [products] = await Promise.all([getProducts()]);
+  let products = await getProducts()
 
   return (
     <main className="lg:min-h-screen lg:p-20 p-0">
@@ -58,4 +56,4 @@ const Home = async () => {
   );
 }
 
-export default Home;
+
