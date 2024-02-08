@@ -2,19 +2,18 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import 'dotenv/config'
+import axios from "axios";
 
 export default function LoginPage() {
 
   const router = useRouter()
 
-  const userAdmin = {
-    username : "admin",
-    password : "admin",
-  }
+  const [isLoading, setIsLoading] = useState(false);
 
   const [user, setUser] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
 
 
@@ -24,40 +23,58 @@ export default function LoginPage() {
   };
 
   async function onSubmitFunction(e) {
+
     e.preventDefault();
+    setIsLoading(true)
 
-    console.log(user.username)
-    console.log(userAdmin.username)
+    await axios.post('/api/admin',{
+      username: user.username,
+      password: user.password
+    })
 
-    if(user.username == userAdmin.username && user.password == userAdmin.password) {
-      const isAdmin = userAdmin.username;
-
-      const expirationAge = 7;
-      Cookies.set("isAdmin", isAdmin, { expires: expirationAge });
-      router.push("/product")
-    } else {
-      alert("Nope")
+    let isLoggedIn = Cookies.get("isAdmin")
+    if (isLoggedIn) {
+      router.push('/product')
     }
+    
+    setIsLoading(false)
   }
-  return(
-    <div className="min-h-screen bg-purple-400 flex justify-center items-center">
-    <div className="absolute w-60 h-60 rounded-xl bg-purple-300 -top-5 -left-16 z-0 transform rotate-45 hidden md:block"></div>
-    <div className="absolute w-48 h-48 rounded-xl bg-purple-300 -bottom-6 -right-10 transform rotate-12 hidden md:block"></div>
-    <form className="py-12 px-12 bg-white rounded-2xl shadow-xl z-20" onSubmit={onSubmitFunction}>
-      <div>
-        <h1 className="text-3xl font-bold text-center mb-4 cursor-pointer text-black">Login</h1>
-      </div>
-      <div className="space-y-4">
-        <input id="username" name= "username" type="text" placeholder="Username" value={user.username} className="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500" onChange={onInputChange} />
-        <input id="password" name= "password" type="text" placeholder="Password" value={user.password} className="block text-sm py-3 px-4 rounded-lg w-full border outline-purple-500" onChange={onInputChange} />
-      </div>
-      <div className="text-center mt-6">
-        <button className="w-full py-2 text-xl text-white bg-purple-400 rounded-lg hover:bg-purple-500 transition-all">Login</button>
-      </div>
-    </form>
-    <div className="w-40 h-40 absolute bg-purple-300 rounded-full top-0 right-12 hidden md:block"></div>
-    <div className="w-20 h-40 absolute bg-purple-300 rounded-full bottom-20 left-10 transform rotate-45 hidden md:block"></div>
-  </div>
 
+  return(
+    <div className="hero min-h-screen bg-base-200">
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="text-center lg:text-left">
+          <h1 className="text-5xl font-bold">Login</h1>
+          <p className="py-6">Login to access the Admin Page!</p>
+        </div>
+        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <form className="card-body" onSubmit={onSubmitFunction}>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Username</span>
+              </label>
+              <input type="text" placeholder="username" name="username" className="input input-bordered" required onChange={onInputChange} value={user.username} />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input type="password" placeholder="password" name="password" className="input input-bordered" required onChange={onInputChange} value={user.password} />
+            </div>
+            <div className="form-control mt-6">
+            {!isLoading ? (
+                <button type="submit" className="btn btn-primary">
+                  Login
+                </button>
+              ) : (
+                <button type="button" className="btn btn-primary">
+                  <button className="btn loading"></button>
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   )
 }

@@ -38,3 +38,4 @@ next-env.d.ts
 #edited
 #local env
 .env
+.env.local
