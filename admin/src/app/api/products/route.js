@@ -15,3 +15,7 @@ export const POST = async (request) =>{
     });
     return NextResponse.json(product, {status: 201});
 }
+
+export const GET = async()=>{
+    const product = await db.product.findMany({})
+}
