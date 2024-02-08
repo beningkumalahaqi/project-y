@@ -1,13 +1,6 @@
 import { NextResponse } from "next/server";
 import db from "../../../../../lib/db";
 
-let ADMIN_ACCES = {
-    username: process.env.ADMIN_USER,
-    password: process.env.ADMIN_PASS,
-    usernameTypeOf: typeof(process.env.ADMIN_USER),
-    passwordTypeof: typeof(process.env.ADMIN_PASS)
-}
-
 export const PATCH = async (request, {params}) =>{
     const body = await request.json();
     const product = await db.product.update({
@@ -24,8 +17,7 @@ export const PATCH = async (request, {params}) =>{
       }
     });
     // Test Response
-    // console.log(product)
-    console.log(ADMIN_ACCES)
+    console.log(product)
     return NextResponse.json(product, {status: 200});
 }
 

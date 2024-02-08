@@ -3,7 +3,6 @@ import Image from "next/image";
 import AddProduct from "./addProduct";
 import UpdateProduct from "./updateProduct";
 import DeleteProduct from "./deleteProduct";
-import { useRouter } from "next/navigation";
 
 const getProducts = async () => {
   const res = await db.product.findMany({});
