@@ -4,13 +4,15 @@ import AddProduct from "./addProduct";
 import UpdateProduct from "./updateProduct";
 import DeleteProduct from "./deleteProduct";
 
-const getProducts = async () => {
-  const res = await db.product.findMany({});
-  return res;
-};
+
 
 
 const Home = async () => {
+
+  const getProducts = async () => {
+    const res = await db.product.findMany({});
+    return res;
+  };
 
   const [products] = await Promise.all([getProducts()]);
 
