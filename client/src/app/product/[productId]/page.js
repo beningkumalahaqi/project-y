@@ -5,7 +5,7 @@ export default async function Page({params}) {
   
   const product = await db.product.findUnique({
     where: {
-      id: params.productId,
+      id: Number(params.productId),
     },
   })
 
