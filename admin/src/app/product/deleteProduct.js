@@ -8,14 +8,16 @@ const DeleteProduct = ({ product }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter();
+  function refreshPage() {
+    window.location.reload();
+  }
 
   const handleDelete = async (productId) => {
     setIsLoading(true);
     //Delete Logic
     await axios.delete(`/api/products/${productId}`);
     setIsLoading(false);
-    router.refresh();
+    refreshPage()
     setIsOpen(false);
   };
 

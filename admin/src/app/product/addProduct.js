@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
 
@@ -15,7 +14,9 @@ const AddProduct = ({}) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter();
+  function refreshPage() {
+    window.location.reload();
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +38,7 @@ const AddProduct = ({}) => {
     setImgAltText("");
     setIsVisible(true);
     setIsAvailable(true);
-    router.refresh();
+    refreshPage()
     setIsOpen(false);
   };
 
