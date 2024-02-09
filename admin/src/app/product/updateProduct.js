@@ -1,4 +1,5 @@
-"use client";
+"use client"
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -19,6 +20,10 @@ const UpdateProduct = ({product}) => {
 
   const router = useRouter();
 
+  function refreshPage() {
+    window.location.reload();
+  }
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -33,7 +38,7 @@ const UpdateProduct = ({product}) => {
     });
 
     setIsLoading(false);
-    router.refresh();
+    refreshPage()
     setIsOpen(false);
   };
 
