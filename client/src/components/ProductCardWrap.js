@@ -24,25 +24,33 @@ const ProductCardWrap = () => {
 
     getProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [products]);
 
 
   return(
-    <div className="grid xl:grid-cols-4 lg:grid-cols-2 md:content-center md:grid-cols-2 justify-items-center place-items-center gap-x-0.5 sm:grid-cols-1 sm:gap-1">
+    <div className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
     {products && products.data.map((data, index) => (
-      <div key={index} className={!data.isVisible ? "hidden" : "card bg-base-100 shadow-xl"}>
-        <figure><Image src={data.image_link} alt={data.img_alt_text} height={1000} width={1000} /></figure>
-        <div className="card-body items-center text-center">
-          <h2 className="card-title my-2.5">{data.title}</h2>
-          <div className="card-actions justify-center flex-col">
-          <a className="btn btn-primary" href={"/product/" + data.id}>Detail</a>
-          </div>
-        </div>
+        <div key={data.id} className={!data.isVisible ? "hidden" : "w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"}>
+          <a href={"/product/" + data.id}>
+              <Image src={data.image_link}
+                      alt={data.img_alt_text} 
+                      className="h-80 w-72 object-cover rounded-t-xl" 
+                      height={1000}
+                      width={1000}
+                      />
+              <div className="px-4 py-3 w-72">
+                  <p className="text-lg font-bold text-black truncate block capitalize my-8">{data.title}</p>
+                  <div className="flex items-center hidden">
+                      <p className="text-lg font-semibold text-black cursor-auto my-3">$149</p>
+                      <del>
+                          <p className="text-sm text-gray-600 cursor-auto ml-2">$199</p>
+                      </del>
+                  </div>
+              </div>
+          </a>
       </div>
     ))}
-    </div>
-    
+    </div> 
   )
-
 }
 export default ProductCardWrap
