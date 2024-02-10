@@ -34,11 +34,11 @@ const ProductCardWrap = () => {
           <a href={"/product/" + data.id}>
               <Image src={data.image_link}
                       alt={data.img_alt_text} 
-                      className="h-80 w-72 object-cover rounded-t-xl" 
+                      className="h-80 w-72 object-cover rounded-xl aspect-square" 
                       height={1000}
                       width={1000}
                       />
-              <div className="px-4 py-3 w-72">
+              <div className="px-4 py-3 w-72 hidden">
                   <p className="text-lg font-bold text-black truncate block capitalize my-8">{data.title}</p>
                   <div className="flex items-center hidden">
                       <p className="text-lg font-semibold text-black cursor-auto my-3">$149</p>

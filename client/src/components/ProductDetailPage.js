@@ -27,7 +27,7 @@ const ProductDetailPage = ({ productId }) => {
     <>
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
-        <Image src={product.image_link} alt={product.img_alt_text} className="lg:max-w-lg rounded-lg shadow-2xl max-w-52" width={500} height={500} />
+        <Image src={product.image_link} alt={product.img_alt_text} className="lg:max-w-lg rounded-lg shadow-2xl max-w-52 object-cover aspect-square" width={1000} height={1000} />
         <div>
           <h1 className="text-5xl font-bold">{product.title}</h1>
           <p className="py-6">{product.description}</p>
