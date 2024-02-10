@@ -7,16 +7,14 @@ import axios from "axios";
 
 const ProductCardWrap = () => {
 
-  const [products, setProducts] = useState(null)
-
-  console.log(products)
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
 
     const getProducts = async() => {
       try {
         const response = await axios.get("/api/products");
-        setProducts(response.data)
+        setProducts(response.data.data)
       } catch (error) {
         // Handle error
         console.error(error);
@@ -30,7 +28,7 @@ const ProductCardWrap = () => {
 
   return(
     <div className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
-    {products && products.data.map((data, index) => (
+    {products.map((data, index) => (
         <div key={data.id} className={!data.isVisible ? "hidden" : "w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"}>
           <a href={"/product/" + data.id}>
               <Image src={data.image_link}
