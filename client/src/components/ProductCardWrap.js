@@ -1,21 +1,36 @@
-import db from "../../lib/db";
+"use client"
+
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const getProduct = async () => {
-  const res = await db.product.findMany({})
-  return res;
-}
+const ProductCardWrap = () => {
 
+  const [products, setProducts] = useState(null)
 
-export default async function ProductCardWrap({}) {
+  console.log(products)
 
-  const ProductSource = await getProduct()
+  useEffect(() => {
+
+    const getProducts = async() => {
+      try {
+        const response = await axios.get("/api/products");
+        setProducts(response.data)
+      } catch (error) {
+        // Handle error
+        console.error(error);
+      }
+    }
+
+    getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   return(
-    <>
-    {ProductSource.map((data) => (
-      <div key={data.id} className={!data.isVisible ? "hidden" : "card bg-base-100 shadow-xl"}>
+    <div className="grid xl:grid-cols-4 lg:grid-cols-2 md:content-center md:grid-cols-2 justify-items-center place-items-center gap-x-0.5 sm:grid-cols-1 sm:gap-1">
+    {products && products.data.map((data, index) => (
+      <div key={index} className={!data.isVisible ? "hidden" : "card bg-base-100 shadow-xl"}>
         <figure><Image src={data.image_link} alt={data.img_alt_text} height={1000} width={1000} /></figure>
         <div className="card-body items-center text-center">
           <h2 className="card-title my-2.5">{data.title}</h2>
@@ -25,8 +40,9 @@ export default async function ProductCardWrap({}) {
         </div>
       </div>
     ))}
-    </>
+    </div>
     
   )
 
 }
+export default ProductCardWrap
