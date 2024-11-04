@@ -31,8 +31,8 @@ jobs:
           app_location: "./client" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
-         env:
-          DATABASE_URL: postgresql://project-y:6HM1YMQYA07OcQzk5O1Xpg@haqi-test-4678.8nk.gcp-asia-southeast1.cockroachlabs.cloud:26257/project-y?sslmode=verify-full
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
